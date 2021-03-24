@@ -1,23 +1,18 @@
-section .text
-	global _ft_strcmp
-	extern _ft_strlen
+segment .text
+	global _ft_strcpy
 
-_ft_strcmp:
-	xor rcx, rcx
-	xor rax, rax
-	call _ft_strlen
-	push rdi 
-	add rdi, rax
-	jmp .loop
+_ft_strcpy:
+        mov rax, 0
 
-.loop:
-	cmp byte[rsi + rcx], 0
-	je return
-	mov dl, [rsi + rcx]
-	mov [rdi + rcx], dl
-	inc rcx
-	jmp .loop
+cycle:
+        cmp byte[rsi + rax], 0
+        je return
+        mov dl, byte[rsi + rax]
+        mov byte[rdi + rax], dl
+        inc rax
+        jmp cycle
 
 return:
-	pop rax
-	ret
+        mov byte[rdi + rax], 0
+        mov rax, rdi
+        ret
