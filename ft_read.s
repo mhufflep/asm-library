@@ -10,11 +10,8 @@ _ft_read:
         ret
 
 set_errno:
-        push r10
-        mov r10, rax
+        push rax
         call ___error
-        mov [rax], r10
-        pop r10
+        pop qword [rax]
         mov rax, -1
         ret
-        

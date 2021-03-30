@@ -17,6 +17,6 @@ cycle:
         jmp cycle
 
 return:
-        sub cl, dl
+        sub rcx, rdx
         mov rax, rcx
-        ret 
+        ret
