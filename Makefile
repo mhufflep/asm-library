@@ -1,36 +1,55 @@
-.PHONY: all clean fclean re bonus
+.PHONY: all clean fclean re dir bonus
 
 NAME = libasm.a
 
 NASM = nasm
 NASM_FLAGS = -f macho64
 
-SRCS =	ft_strlen.s	\
-		ft_strcmp.s \
-		ft_strcpy.s \
-		ft_write.s \
-		ft_read.s \
-		ft_strdup.s
+OBJ_DIR = obj
+SRC_DIR = src
 
-OBJ = $(SRCS:.s=.o)
-BONUS_OBJ = $(BONUS_SRCS:.s=.o)
+SRCS		=	ft_read.s \
+				ft_write.s \
+				ft_strlen.s	\
+				ft_strdup.s \
+				ft_strcpy.s \
+				ft_strcmp.s \
 
-all: $(NAME)
+BONUS_SRCS	= 	ft_list_size_bonus.s \
+				ft_atoi_base_bonus.s \
+				ft_list_sort_bonus.s \
+				ft_list_remove_if_bonus.s \
+				ft_list_push_front_bonus.s \
 
-%.o: %.s
-	$(NASM) $(NASM_FLAGS) $<
+HEADERS = libasm.h 
 
-$(NAME): $(OBJ) 
+ifdef BONUS
+OBJ = $(addprefix $(OBJ_DIR)/, $(SRCS:.s=.o))
+OBJ += $(addprefix $(OBJ_DIR)/, $(BONUS_SRCS:.s=.o))
+HEADERS += libasm_bonus.h
+else
+OBJ = $(addprefix $(OBJ_DIR)/, $(SRCS:.s=.o))
+endif
+
+all: dir $(NAME)
+
+dir:
+	@mkdir -p $(OBJ_DIR)
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.s
+	$(NASM) $(NASM_FLAGS) $< -o $@
+
+$(NAME): $(OBJ) $(HEADERS)
 	ar rcs $(NAME) $?
 
 clean:
-	rm -f $(OBJ) 
+	rm -rf $(OBJ_DIR)
 
 fclean: clean
 	rm -f $(NAME)
 
-bonus: $(OBJ) $(BONUS_OBJECTS)
-	ar rcs $(NAME) $?
+bonus:
+	$(MAKE) BONUS=1 --no-print-directory
 
 re: fclean all
 
