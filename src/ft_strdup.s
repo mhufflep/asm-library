@@ -18,7 +18,6 @@ _ft_strdup:
         call	_ft_strcpy
         mov		rdi, rsi
         ret
-
 return:
         pop rdi
         ret

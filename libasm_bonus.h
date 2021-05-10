@@ -6,7 +6,7 @@
 /*   By: mhufflep <mhufflep@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 08:00:39 by mhufflep          #+#    #+#             */
-/*   Updated: 2021/05/09 12:07:32 by mhufflep         ###   ########.fr       */
+/*   Updated: 2021/05/10 11:24:34 by mhufflep         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ typedef struct s_list
 	void			*data;
 	struct s_list	*next;
 }					t_list;
-
 
 int		ft_atoi_base(char *str, char *base);
 int		ft_list_size(t_list *begin_list);
