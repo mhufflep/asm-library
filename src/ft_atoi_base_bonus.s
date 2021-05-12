@@ -32,11 +32,10 @@ _cb_loop_beg_i:
 	cmp byte[rsi], 0
 	je _check_base_end
 
-
 	cmp byte[rsi], 32
-	jle _cb_err
+	jle		_cb_err
 	cmp   byte [rsi], 43
-	je    _cb_err
+	je		_cb_err
 	cmp   byte [rsi], 45
 	je    _cb_err
 	mov r9, 1
