@@ -1,8 +1,3 @@
-section .data
-
-msg:    db      "Here!", 10
-.len:   equ     $ - msg
-
 segment .text
 global _ft_atoi_base
 
@@ -26,6 +21,10 @@ _ft_atoi_base:
 	
 	mov rcx, rax		; get base length
 
+; ####################### ;
+;	CHECK BASE STRING	  ;
+; ####################### ;
+
 _check_base:
 	push rsi
 	
@@ -33,18 +32,9 @@ _cb_loop_beg_i:
 	cmp byte[rsi], 0
 	je _check_base_end
 
-	cmp   byte[rsi], 9    
-	je    _cb_err
-	cmp   byte[rsi], 10   
-	je    _cb_err
-	cmp   byte[rsi], 11   
-	je    _cb_err
-	cmp   byte[rsi], 12   
-	je    _cb_err
-	cmp   byte[rsi], 13   
-	je    _cb_err
-	cmp   byte[rsi], ' '  
-	je    _cb_err
+
+	cmp byte[rsi], 32
+	jle _cb_err
 	cmp   byte [rsi], 43
 	je    _cb_err
 	cmp   byte [rsi], 45
@@ -72,32 +62,21 @@ _check_base_end:
 	jmp _skip_spaces
 
 
-
-
-
+; ####################### ;
+;		SKIP  SPACES	  ;
+; ####################### ;
 _skip_spaces_inc:
 	inc rdi
 
 _skip_spaces:
-	cmp   byte[rdi], 9   
-	je    _skip_spaces_inc
-	cmp   byte[rdi], 10   
-	je    _skip_spaces_inc
-	cmp   byte[rdi], 11   
-	je    _skip_spaces_inc
-	cmp   byte[rdi], 12   
-	je    _skip_spaces_inc
-	cmp   byte[rdi], 13   
-	je    _skip_spaces_inc
-	cmp   byte[rdi], ' '   
-	je    _skip_spaces_inc
+	cmp byte[rdi], 32
+	jle _skip_spaces_inc
 	jmp   _sign
 
 
-
-
-
-
+; ####################### ;
+;			SIGN		  ;
+; ####################### ;
 _set_minus:
 	xor	r8, 1
 _set_plus:
@@ -109,8 +88,9 @@ _sign:
 	je _set_minus
 
 
-
-
+; ####################### ;
+;		MAIN CYCLE		  ;
+; ####################### ;
 _main_cycle:
 
 	cmp byte [rdi], 0
@@ -138,8 +118,9 @@ _get_index_ret:
 	jmp _main_cycle
 
 
-
-
+; ####################### ;
+;		RETURN & ERROR	  ;
+; ####################### ;
 _error:
 	mov rax, 0
 
@@ -153,15 +134,3 @@ _mul_minus:
 	imul rdx, -1
 	xor	r8, 1
 	jmp _return
-
-
-
-
-
-print:
-    mov     rax, 0x2000004 ; write
-    mov     rdi, 1 ; stdout
-    mov     rsi, msg
-    mov     rdx, msg.len
-    syscall
-    ret
