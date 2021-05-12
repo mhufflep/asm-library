@@ -1,9 +1,3 @@
-section .data
-
-msg:    db      "Here!", 10
-.len:   equ     $ - msg
-
-
 segment .text
 global _ft_list_sort
 
@@ -20,7 +14,6 @@ _cycle_external:
 	je _return
 	mov r9, 1
 	mov rdx, [rdi]
-	call print
 
 _cycle_internal:
 	cmp qword [rdx + 8], 0
@@ -58,13 +51,3 @@ _swap:
 
 _return:
 	ret
-
-
-
-print:
-    mov     rax, 0x2000004 ; write
-    mov     rdi, 1 ; stdout
-    mov     rsi, msg
-    mov     rdx, msg.len
-    syscall
-    ret

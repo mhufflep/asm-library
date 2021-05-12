@@ -1,65 +1,167 @@
+section .data
+
+msg:    db      "Here!", 10
+.len:   equ     $ - msg
+
 segment .text
 global _ft_atoi_base
 
 extern _ft_strlen
 
 _ft_atoi_base:
-	push	rdi
-	push	rsi
-	mov		rdi, rsi	; 1st = base
-	call	_ft_strlen	; call strlen
-	pop		rsi
-	pop		rdi
-	cmp		rax, 2		; if ret < 2
-	jl		_return
+	mov rdx, 0			; number value
+	mov r8, 0 			; negative
 
-	mov rcx, -1
-	mov rdx, 0
-	mov r8, 1
+	push rdi
+	push rsi
+
+	mov rdi, rsi
+	call _ft_strlen
+
+	pop rsi
+	pop rdi
+
+	cmp rax, 2			; check base length
+	jl _error
+	
+	mov rcx, rax		; get base length
+
+_check_base:
+	push rsi
+	
+_cb_loop_beg_i:
+	cmp byte[rsi], 0
+	je _check_base_end
+
+	cmp   byte[rsi], 9    
+	je    _cb_err
+	cmp   byte[rsi], 10   
+	je    _cb_err
+	cmp   byte[rsi], 11   
+	je    _cb_err
+	cmp   byte[rsi], 12   
+	je    _cb_err
+	cmp   byte[rsi], 13   
+	je    _cb_err
+	cmp   byte[rsi], ' '  
+	je    _cb_err
+	cmp   byte [rsi], 43
+	je    _cb_err
+	cmp   byte [rsi], 45
+	je    _cb_err
+	mov r9, 1
+	mov r10b, byte [rsi]
+
+_cb_loop_beg_j:
+	cmp byte [rsi + r9], 0
+	je _cb_loop_end_i
+	cmp byte [rsi + r9], r10b
+	je _cb_err
+	inc r9
+	jmp _cb_loop_beg_j
+_cb_loop_end_i:
+	inc rsi
+	jmp _cb_loop_beg_i
+
+_cb_err:
+	pop rsi
+	jmp _return
+
+_check_base_end:
+	pop rsi
+	jmp _skip_spaces
+
+
+
+
+
+_skip_spaces_inc:
+	inc rdi
 
 _skip_spaces:
-	inc rcx
-	cmp byte [rdi + rcx], 32
-	jle _skip_spaces
-	dec rcx
-	jmp _recognize_sign
+	cmp   byte[rdi], 9   
+	je    _skip_spaces_inc
+	cmp   byte[rdi], 10   
+	je    _skip_spaces_inc
+	cmp   byte[rdi], 11   
+	je    _skip_spaces_inc
+	cmp   byte[rdi], 12   
+	je    _skip_spaces_inc
+	cmp   byte[rdi], 13   
+	je    _skip_spaces_inc
+	cmp   byte[rdi], ' '   
+	je    _skip_spaces_inc
+	jmp   _sign
 
 
-_minus:
-	imul	r8, -1		
-	jmp _recognize_sign
 
-_recognize_sign:
-	inc rcx
-	cmp byte [rdi + rcx], 45
-	je _minus
-	cmp byte [rdi + rcx], 43
-	jne _recognize_sign
 
-_cycle:
-	jmp _find_pos_prep
 
-_find_pos_ret:
-	mul rdx
-	add rdx, r11
-	inc rcx
 
-_find_pos_prep:
-	mov r10, 0
-	mov r11, 0
-	mov r10b, byte [rdi + rcx]
+_set_minus:
+	xor	r8, 1
+_set_plus:
+	inc rdi
+_sign:
+	cmp byte [rdi], 43 ; +
+	je _set_plus
+	cmp byte [rdi], 45 ; -
+	je _set_minus
 
-_find_pos:
-	inc r11
-	cmp byte [rsi + r11], 0
+
+
+
+_main_cycle:
+
+	cmp byte [rdi], 0
 	je _return
-	cmp byte [rsi + r11], r10b
-	je _find_pos_ret
-	jmp _find_pos
 
+_get_index:
+	mov rax, 0
+	mov r9b, byte [rdi]
+_get_index_cycle:
+	cmp byte [rsi + rax], 0
+	je _get_index_ret
+	cmp byte[rsi + rax], r9b
+	je _get_index_ret
+	inc rax
+	jmp _get_index_cycle
+
+_get_index_ret:
+
+	cmp rax, rcx
+	je _return
+
+	imul rdx, rcx
+	add rdx, rax
+	inc rdi
+	jmp _main_cycle
+
+
+
+
+_error:
+	mov rax, 0
 
 _return:
-	mov rax, r8
-	mul rdx
+	cmp r8, 1
+	je _mul_minus
 	mov rax, rdx
 	ret
+
+_mul_minus:
+	imul rdx, -1
+	xor	r8, 1
+	jmp _return
+
+
+
+
+
+print:
+    mov     rax, 0x2000004 ; write
+    mov     rdi, 1 ; stdout
+    mov     rsi, msg
+    mov     rdx, msg.len
+    syscall
+    ret
