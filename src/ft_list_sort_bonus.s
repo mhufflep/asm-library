@@ -1,70 +1,57 @@
-section .data
-
-msg:    db      "Here!", 10
-.len:   equ     $ - msg
-
-
 segment .text
 global _ft_list_sort
 
-extern _ft_strlen
-
 _ft_list_sort:
-	mov r8, 0		; len
-	mov r9, 0		; sorted
-	mov rdx, 0		; tmp *
-	; mov rcx, 0	; char 0*
+		cmp	rdi, 0
+		je _return							; compare lst and *lst with null-value
+		cmp qword [rdi], 0
+		je _return
 
-_cycle_external:
-	cmp r9, 1
-	je _return
-	mov r9, 1
-	mov rdx, [rdi]
-	call print
+		cmp rsi, 0							; check if compare function is not null
+		je _return
 
-_cycle_internal:
-	cmp qword [rdx + 8], 0
-	je _return
+		mov rcx, [rdi]						; save *lst into rcx
+_iterate:
+		mov rdi, rcx						; restore *lst from rcx
+_check_lst:
+		cmp rdi, 0							; check lst != NULL
+		je _return
 
-	push rdi
-	push rsi
+		cmp qword [rdi + 8], 0				; check if lst->next != NULL
+		je _return
+ 
+_iterate_loop:
+		push rdi
+		push rsi
+		push rcx
+		push rdx
 
-	mov rcx, rsi			;cmp save
-	mov rdi, [rdx]			;tmp->content
-	mov r8, [rdx + 8]		;tmp->next into r8
-	mov rsi, [r8]
-	
-	call rcx
-	
-	pop rsi
-	pop rdi
+		mov rdx, rsi						; save cmp to rdx
+		mov r10, [rdi + 8]					; r10 = lst->next
+		mov rsi, [r10]						; r9 = lst->next->data
+		mov rdi, [rdi]						; rdi = lst->data
+		mov rax, 0
 
-	cmp rax, 0
-	ja _swap
+		call rdx							; call cmp
 
-	mov rdx, [rdx + 8]
+		pop rdx
+		pop rcx
+		pop rsi
+		pop rdi
 
-	jmp _cycle_internal
+		cmp eax, 0							; compare returned value with 0
+		jg _swap_data
+_skip_iteration:
+		mov rdi, [rdi + 8]					; lst = lst->next
+		jmp _check_lst
 
-	jmp _cycle_external
-
-_swap:
-	push qword [rdx]
-	push qword [r8]
-	pop qword [rdx]
-	pop qword [r8]
-	mov r9, 0
-	jmp _cycle_external
+_swap_data:
+		push qword [rdi]					; save lst->data
+		mov r10, [rdi + 8]					; r10 = lst->next
+		push qword [r10]					; save lst->next->data
+		pop qword [rdi]						; restore lst->next->data into lst->data 
+		pop qword [r10]						; restore lst->data into lst->next->content
+		jmp _iterate
 
 _return:
-	ret
-
-
-
-print:
-    mov     rax, 0x2000004 ; write
-    mov     rdi, 1 ; stdout
-    mov     rsi, msg
-    mov     rdx, msg.len
-    syscall
-    ret
+		ret

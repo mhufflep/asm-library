@@ -4,6 +4,7 @@ global _ft_list_remove_if
 extern _free
 
 _ft_list_remove_if:
+	push rsp
 	cmp			rdi, 0
 	je	_return
 	cmp	qword [rdi], 0
@@ -12,16 +13,16 @@ _ft_list_remove_if:
 compare:
 	push		rdi
 	push		rsi
-		; push		rdx
-		; push		rcx
+	push		rdx
+	push		rcx
 	
 	mov			r10, [rdi]				; r10 = *begin_list
 	mov			rdi, [r10]				; rdi = begin_list->data
 	
 	call		rdx
 
-		; pop			rcx
-		; pop			rdx
+	pop			rcx
+	pop			rdx
 	pop			rsi
 	pop			rdi
 
@@ -54,14 +55,15 @@ remove:
 
 	pop qword [rdi]
 
-	call _ft_list_remove_if
+	call	_ft_list_remove_if
 
 _return:
+	pop rsp
 	ret
 
 _recursion:
-	mov r11, 8
-	add r10, r11
-	mov rdi, r10
-	call _ft_list_remove_if
-	ret
+	mov			r11, 8
+	add			r10, r11
+	mov			rdi, r10
+	call	_ft_list_remove_if
+	jmp		_return

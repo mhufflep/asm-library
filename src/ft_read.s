@@ -11,7 +11,7 @@ _ft_read:
 
 set_errno:
         push    rax
-        call ___error
-        pop     qword [rax]
+        call    ___error
+        pop qword [rax]
         mov     rax, -1
         ret

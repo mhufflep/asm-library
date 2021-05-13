@@ -4,8 +4,14 @@ global _ft_atoi_base
 extern _ft_strlen
 
 _ft_atoi_base:
+
 	mov rdx, 0			; number value
 	mov r8, 0 			; negative
+
+	cmp rdi, 0
+	je _error
+	cmp rsi, 0
+	je _error
 
 	push rdi
 	push rsi
@@ -29,17 +35,17 @@ _check_base:
 	push rsi
 	
 _cb_loop_beg_i:
-	cmp byte[rsi], 0
-	je _check_base_end
-
-	cmp byte[rsi], 32
+	cmp		byte[rsi], 0
+	je		_check_base_end
+	cmp		byte[rsi], 32
 	jle		_cb_err
-	cmp   byte [rsi], 43
+	cmp		byte [rsi], 43
 	je		_cb_err
-	cmp   byte [rsi], 45
-	je    _cb_err
-	mov r9, 1
-	mov r10b, byte [rsi]
+	cmp		byte [rsi], 45
+	je		_cb_err
+	
+	mov		r9, 1
+	mov		r10b, byte [rsi]
 
 _cb_loop_beg_j:
 	cmp byte [rsi + r9], 0

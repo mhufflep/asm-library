@@ -24,14 +24,20 @@ BONUS_SRCS	= 	ft_list_size_bonus.s \
 HEADERS = libasm.h 
 
 ifdef BONUS
-OBJ = $(addprefix $(OBJ_DIR)/, $(SRCS:.s=.o))
-OBJ += $(addprefix $(OBJ_DIR)/, $(BONUS_SRCS:.s=.o))
-HEADERS += libasm_bonus.h
+	OBJ = $(addprefix $(OBJ_DIR)/, $(SRCS:.s=.o))
+	OBJ += $(addprefix $(OBJ_DIR)/, $(BONUS_SRCS:.s=.o))
+	HEADERS += libasm_bonus.h
 else
-OBJ = $(addprefix $(OBJ_DIR)/, $(SRCS:.s=.o))
+	OBJ = $(addprefix $(OBJ_DIR)/, $(SRCS:.s=.o))
 endif
 
 all: dir $(NAME)
+
+run:
+	gcc main.c $(NAME)
+	
+runb:
+	gcc main_bonus.c $(NAME)
 
 dir:
 	@mkdir -p $(OBJ_DIR)
