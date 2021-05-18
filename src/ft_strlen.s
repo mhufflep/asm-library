@@ -6,6 +6,6 @@ _ft_strlen:
 
 cycle:
 	inc 	rax
-	cmp 	byte [rdi + rax], 0
+	cmp 	byte[rdi + rax], 0
 	jne 	cycle
 	ret

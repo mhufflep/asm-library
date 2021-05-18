@@ -10,12 +10,12 @@ _ft_strdup:
         push rdi
         call _ft_strlen
         inc rax
-        mov rdi, rax            ; rdi - first argument , rsi - second, rdx - third 
+        mov rdi, rax
         call _malloc
         jz return
         pop rsi
         mov rdi, rax
-        call _ft_strcpy         ; rdi - dst, rsi - src
+        call _ft_strcpy
         mov rdi, rsi
         ret
 

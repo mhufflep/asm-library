@@ -4,7 +4,7 @@ segment .text
 _ft_strcpy:
         mov     rax, 0
 
-cycle: 
+cycle:
         cmp     byte[rsi + rax], 0
         je      return
         mov dl, byte[rsi + rax]

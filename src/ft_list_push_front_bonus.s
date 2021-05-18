@@ -5,7 +5,6 @@ extern _malloc
 
 _ft_list_push_front:
 	push rsp
-	
 	cmp rdi, 0
 	je _return
 	 
@@ -25,7 +24,7 @@ _ft_list_push_front:
 	push qword [rdi]
 	pop qword [rax + 8]
 
-	mov [rdi], rax  ; *begin_list = new;
+	mov [rdi], rax
 
 _return:
 	pop rsp
