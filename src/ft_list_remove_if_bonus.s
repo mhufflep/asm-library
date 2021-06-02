@@ -42,8 +42,8 @@ compare:
 	push		rdx
 	push		rcx
 	
-	mov			r10, [rdi]				; r10 = *begin_list
-	mov			rdi, [r10]				; rdi = begin_list->data
+	mov			r10, [rdi]       ; r10 = *begin_list
+	mov			rdi, [r10]       ; rdi = begin_list->data
 	
 	call rdx
 

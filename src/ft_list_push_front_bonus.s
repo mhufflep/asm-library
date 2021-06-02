@@ -31,7 +31,7 @@ _ft_list_push_front:
 	push		rdi
 	push		rsi
 
-	mov			rdi, 16		; size of t_list struct is equal to 16
+	mov			rdi, 16     ; size of t_list struct is equal to 16
 	call _malloc
 	
 	pop			rsi
