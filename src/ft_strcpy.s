@@ -1,19 +1,19 @@
-; #################################################################	;
-;																	;
-;		char	*ft_strcpy(char *dst, const char *src);				;
-;																	;
-;		This function copy the string src to dst					;
-;		(including the terminating `\0' character.)					;
-;																	;
-;		WARN: (Does not allocate memory)							;
-;																	;
-;		It takes two argument:										;
-;																	;
-;		char *dst: a pointer to the destination string.				;
-;																	;
-;		const char *src: a pointer to the source string.			;
-;																	;
-; #################################################################	;
+; ################################################################# ;
+;                                                                   ;
+;        char *ft_strcpy(char *dst, const char *src);               ;
+;                                                                   ;
+;        This function copy the string src to dst                   ;
+;        (including the terminating `\0' character.)                ;
+;                                                                   ;
+;        WARN: (Does not allocate memory)                           ;
+;                                                                   ;
+;        It takes two argument:                                     ;
+;                                                                   ;
+;        char *dst: a pointer to the destination string.            ;
+;                                                                   ;
+;        const char *src: a pointer to the source string.           ;
+;                                                                   ;
+; ################################################################# ;
 
 segment .text
 	global _ft_strcpy

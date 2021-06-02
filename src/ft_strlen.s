@@ -1,15 +1,15 @@
-; #################################################################	;
-;																	;
-;				size_t	ft_strlen(const char *str);					;
-;																	;
-;		This function counts the size of the str.					;
-;																	;
-;		It takes one argument:										;
-;																	;
-;		const char *str: an address of beginning					;
-;		of a NULL-terminated string.								;
-;																	;
-; #################################################################	;
+; ################################################################# ;
+;                                                                   ;
+;             size_t    ft_strlen(const char *str);                 ;
+;                                                                   ;
+;        This function counts the size of the str.                  ;
+;                                                                   ;
+;        It takes one argument:                                     ;
+;                                                                   ;
+;        const char *str: an address of beginning                   ;
+;        of a NULL-terminated string.                               ;
+;                                                                   ;
+; ################################################################# ;
 
 segment .text
 	global _ft_strlen

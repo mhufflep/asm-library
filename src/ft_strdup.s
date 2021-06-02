@@ -1,16 +1,16 @@
-; #################################################################	;
-;																	;
-;			char	*ft_strdup(const char *str);					;
-;																	;
-;		This function duplicates the string using malloc.			;
-;		Returns a pointer to the new string.						;
-;																	;
-;		It takes one argument:										;
-;																	;
-;		const char *str: an address of beginning					;
-;		of a NULL-terminated string.								;
-;																	;
-; #################################################################	;
+; ################################################################# ;
+;                                                                   ;
+;              char *ft_strdup(const char *str);                    ;
+;                                                                   ;
+;        This function duplicates the string using malloc.          ;
+;        Returns a pointer to the new string.                       ;
+;                                                                   ;
+;        It takes one argument:                                     ;
+;                                                                   ;
+;        const char *str: an address of beginning                   ;
+;        of a NULL-terminated string.                               ;
+;                                                                   ;
+; ################################################################# ;
 
 segment .text
 	global _ft_strdup

@@ -1,11 +1,11 @@
-; #################################################################	;
-;																	;
-;		int ft_strcmp(const char *str1, const char *str2);			;
-;																	;
-;		This function functions lexicographically compare			;
-;		the null-terminated strings str1 and str2.					;
-;																	;
-; #################################################################	;
+; ################################################################# ;
+;                                                                   ;
+;        int ft_strcmp(const char *str1, const char *str2);         ;
+;                                                                   ;
+;        This function functions lexicographically compare          ;
+;        the null-terminated strings str1 and str2.                 ;
+;                                                                   ;
+; ################################################################# ;
 
 segment .text
 	global _ft_strcmp

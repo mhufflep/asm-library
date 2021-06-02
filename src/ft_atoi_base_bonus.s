@@ -1,19 +1,19 @@
-; #################################################################	;
-;																	;
-;		int		ft_atoi_base(char *str, char *base);				;
-;																	;
-;		This function converts number (str) from 'base'-num			;
-;		system	to the 10-num system;								;
-;																	;
-;		It takes two arguments:										;
-;																	;
-;		char *str:	a string that represents a number				;
-;					in a 'base'-num system.							;
-;																	;
-;		char *base - a string that contains all symbols				;
-;					of the current base of the number. 				;
-;																	;
-; #################################################################	;
+; ################################################################# ;
+;                                                                   ;
+;        int    ft_atoi_base(char *str, char *base);                ;
+;                                                                   ;
+;        This function converts number (str) from 'base'-num        ;
+;        system    to the 10-num system;                            ;
+;                                                                   ;
+;        It takes two arguments:                                    ;
+;                                                                   ;
+;        char *str:    a string that represents a number            ;
+;                    in a 'base'-num system.                        ;
+;                                                                   ;
+;        char *base - a string that contains all symbols            ;
+;                    of the current base of the number.             ;
+;                                                                   ;
+; ################################################################# ;
 
 segment .text
 global _ft_atoi_base

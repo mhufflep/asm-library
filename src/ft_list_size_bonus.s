@@ -1,15 +1,15 @@
-; #################################################################	;
-;																	;
-;			int		ft_list_size(t_list *begin_list);				;
-;																	;
-;		This function returns the size of a list.					;
-;																	;
-;		It takes one argument:										;
-;																	;
-;		t_list *begin_list: an address of beginning element			;
-;		of the list.												;
-;																	;
-; #################################################################	;
+; ################################################################# ;
+;                                                                   ;
+;            int        ft_list_size(t_list *begin_list);           ;
+;                                                                   ;
+;        This function returns the size of a list.                  ;
+;                                                                   ;
+;        It takes one argument:                                     ;
+;                                                                   ;
+;        t_list *begin_list: an address of beginning element        ;
+;        of the list.                                               ;
+;                                                                   ;
+; ################################################################# ;
 
 segment .text
 global _ft_list_size

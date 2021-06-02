@@ -1,22 +1,22 @@
-; #################################################################	;
-;																	;
-;	void	ft_list_push_front(t_list **begin_list, void *data);	;
-;																	;
-;		This function allocates new t_list node, place				;
-;		data argument into this node and add this node				;
-;		to the list related with begin_list							;
-;		system	to the 10-num system;								;
-;																	;
-;		It takes two arguments:										;
-;																	;
-;		t_list **begin_list:	an address of a pointer				;
-;		that stored the address of beginning element of				;
-;		the list.													;
-;																	;
-;		void *data - a pointer to the memory that should			;
-;		be placed in node->data.					 				;
-;																	;
-; #################################################################	;
+; ################################################################# ;
+;                                                                   ;
+;    void    ft_list_push_front(t_list **begin_list, void *data);   ;
+;                                                                   ;
+;        This function allocates new t_list node, place             ;
+;        data argument into this node and add this node             ;
+;        to the list related with begin_list                        ;
+;        system    to the 10-num system;                            ;
+;                                                                   ;
+;        It takes two arguments:                                    ;
+;                                                                   ;
+;        t_list **begin_list:    an address of a pointer            ;
+;        that stored the address of beginning element of            ;
+;        the list.                                                  ;
+;                                                                   ;
+;        void *data - a pointer to the memory that should           ;
+;        be placed in node->data.                                   ;
+;                                                                   ;
+; ################################################################# ;
 
 segment .text
 global _ft_list_push_front

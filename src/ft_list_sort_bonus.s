@@ -1,19 +1,19 @@
-; #################################################################	;
-;																	;
-;		void ft_list_sort(t_list **begin_list, int (*cmp)());		;
-;																	;
-;		This function sorts list related to begin_list.				;
-;																	;
-;		It takes two arguments:										;
-;																	;
-;		t_list **begin_list: an address of a pointer				;
-;		that stored the address of beginning element of				;
-;		the list.													;
-;																	;
-;		int (*cmp)(): a function that compares datas.				;
-;		It should return 0 if data is equal.						;
-;																	;
-; #################################################################	;
+; ################################################################# ;
+;                                                                   ;
+;        void ft_list_sort(t_list **begin_list, int (*cmp)());      ;
+;                                                                   ;
+;        This function sorts list related to begin_list.            ;
+;                                                                   ;
+;        It takes two arguments:                                    ;
+;                                                                   ;
+;        t_list **begin_list: an address of a pointer               ;
+;        that stored the address of beginning element of            ;
+;        the list.                                                  ;
+;                                                                   ;
+;        int (*cmp)(): a function that compares datas.              ;
+;        It should return 0 if data is equal.                       ;
+;                                                                   ;
+; ################################################################# ;
 
 segment .text
 global _ft_list_sort
