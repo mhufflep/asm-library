@@ -1,3 +1,20 @@
+; #################################################################	;
+;																	;
+;		int		ft_atoi_base(char *str, char *base);				;
+;																	;
+;		This function converts number (str) from 'base'-num			;
+;		system	to the 10-num system;								;
+;																	;
+;		It takes two arguments:										;
+;																	;
+;		char *str:	a string that represents a number				;
+;					in a 'base'-num system.							;
+;																	;
+;		char *base - a string that contains all symbols				;
+;					of the current base of the number. 				;
+;																	;
+; #################################################################	;
+
 segment .text
 global _ft_atoi_base
 
@@ -5,97 +22,106 @@ extern _ft_strlen
 
 _ft_atoi_base:
 
-	mov rdx, 0			; number value
-	mov r8, 0 			; negative
+	mov		rdx, 0			; number value
+	mov		r8, 0 			; negative
 
-	cmp rdi, 0
+	cmp		rdi, 0
 	je _error
-	cmp rsi, 0
+	cmp		rsi, 0
 	je _error
 
-	push rdi
-	push rsi
+	push	rdi
+	push	rsi
 
-	mov rdi, rsi
+	mov		rdi, rsi
 	call _ft_strlen
 
-	pop rsi
-	pop rdi
+	pop		rsi
+	pop		rdi
 
-	cmp rax, 2			; check base length
+	cmp		rax, 2			; check base length
 	jl _error
 	
-	mov rcx, rax		; get base length
+	mov		rcx, rax		; get base length
 
-; ####################### ;
-;	CHECK BASE STRING	  ;
-; ####################### ;
+; ##################################################################### ;
+;																		;
+;						CHECK BASE STRING								;
+;																		;
+; ##################################################################### ;
 
 _check_base:
 	push rsi
 	
 _cb_loop_beg_i:
 	cmp		byte[rsi], 0
-	je		_check_base_end
+	je _check_base_end
 	cmp		byte[rsi], 32
-	jle		_cb_err
+	jle _cb_err
 	cmp		byte [rsi], 43
-	je		_cb_err
+	je _cb_err
 	cmp		byte [rsi], 45
-	je		_cb_err
+	je _cb_err
 	
 	mov		r9, 1
 	mov		r10b, byte [rsi]
 
 _cb_loop_beg_j:
-	cmp byte [rsi + r9], 0
+	cmp		byte [rsi + r9], 0
 	je _cb_loop_end_i
-	cmp byte [rsi + r9], r10b
+	cmp		byte [rsi + r9], r10b
 	je _cb_err
-	inc r9
+	inc	r9
 	jmp _cb_loop_beg_j
 _cb_loop_end_i:
 	inc rsi
 	jmp _cb_loop_beg_i
 
 _cb_err:
-	pop rsi
+	pop		rsi
 	jmp _return
 
 _check_base_end:
-	pop rsi
+	pop		rsi
 	jmp _skip_spaces
 
 
-; ####################### ;
-;		SKIP  SPACES	  ;
-; ####################### ;
+; ##################################################################### ;
+;																		;
+;								SKIP SPACES								;
+;																		;
+; ##################################################################### ;
 _skip_spaces_inc:
 	inc rdi
 
 _skip_spaces:
-	cmp byte[rdi], 32
+	cmp		byte[rdi], 32
 	jle _skip_spaces_inc
-	jmp   _sign
+	jmp _sign
 
 
-; ####################### ;
-;			SIGN		  ;
-; ####################### ;
+; ##################################################################### ;
+;																		;
+;									SIGN								;
+;																		;
+; ##################################################################### ;
 _set_minus:
-	xor	r8, 1
+	xor r8, 1
 _set_plus:
 	inc rdi
 _sign:
-	cmp byte [rdi], 43 ; +
+	cmp		byte [rdi], 43	; sign +
 	je _set_plus
-	cmp byte [rdi], 45 ; -
+	cmp		byte [rdi], 45	; sign -
 	je _set_minus
 
 
-; ####################### ;
-;		MAIN CYCLE		  ;
-; ####################### ;
+; ##################################################################### ;
+;																		;
+;								MAIN CYCLE								;
+;																		;
+; ##################################################################### ;
+
 _main_cycle:
 
 	cmp byte [rdi], 0
@@ -123,9 +149,12 @@ _get_index_ret:
 	jmp _main_cycle
 
 
-; ####################### ;
-;		RETURN & ERROR	  ;
-; ####################### ;
+; ##################################################################### ;
+;																		;
+;							RETURN & ERROR								;
+;																		;
+; ##################################################################### ;
+
 _error:
 	mov rax, 0
 
@@ -134,6 +163,13 @@ _return:
 	je _mul_minus
 	mov rax, rdx
 	ret
+
+
+; ##################################################################### ;
+;																		;
+;							RETURN NEGATIVE								;
+;																		;
+; ##################################################################### ;
 
 _mul_minus:
 	imul rdx, -1
