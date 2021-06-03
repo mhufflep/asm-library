@@ -44,6 +44,7 @@ _ft_atoi_base:
 	
 	mov		rcx, rax		; get base length
 
+
 ; ##################################################################### ;
 ;                                                                       ;
 ;                          CHECK BASE STRING                            ;
@@ -73,6 +74,7 @@ _cb_loop_beg_j:
 	je _cb_err
 	inc	r9
 	jmp _cb_loop_beg_j
+
 _cb_loop_end_i:
 	inc rsi
 	jmp _cb_loop_beg_i
@@ -105,6 +107,7 @@ _skip_spaces:
 ;                               SIGN                                    ;
 ;                                                                       ;
 ; ##################################################################### ;
+
 _set_minus:
 	xor r8, 1
 _set_plus:
@@ -123,28 +126,26 @@ _sign:
 ; ##################################################################### ;
 
 _main_cycle:
-
-	cmp byte [rdi], 0
+	cmp		byte [rdi], 0
 	je _return
 
 _get_index:
-	mov rax, 0
-	mov r9b, byte [rdi]
+	mov		rax, 0
+	mov		r9b, byte [rdi]
 _get_index_cycle:
-	cmp byte [rsi + rax], 0
+	cmp		byte [rsi + rax], 0
 	je _get_index_ret
-	cmp byte[rsi + rax], r9b
+	cmp		byte[rsi + rax], r9b
 	je _get_index_ret
 	inc rax
 	jmp _get_index_cycle
 
 _get_index_ret:
-
-	cmp rax, rcx
+	cmp		rax, rcx
 	je _return
 
-	imul rdx, rcx
-	add rdx, rax
+	imul	rdx, rcx
+	add		rdx, rax
 	inc rdi
 	jmp _main_cycle
 
@@ -159,9 +160,9 @@ _error:
 	mov rax, 0
 
 _return:
-	cmp r8, 1
+	cmp		r8, 1
 	je _mul_minus
-	mov rax, rdx
+	mov		rax, rdx
 	ret
 
 
@@ -172,6 +173,6 @@ _return:
 ; ##################################################################### ;
 
 _mul_minus:
-	imul rdx, -1
-	xor	r8, 1
+	imul	rdx, -1
+	xor		r8, 1
 	jmp _return
